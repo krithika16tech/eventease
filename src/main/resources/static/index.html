@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventEase — College Event Registration System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Background Glow Effects -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                        <path d="M6 6h10"/>
+                        <path d="M6 10h10"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">EventEase</span>
+                    <span class="brand-subtitle">College Event Registration System</span>
+                </div>
+            </div>
+
+            <nav class="nav-tabs" id="mainNav">
+                <button class="nav-btn active" data-tab="eventsTab" id="navEvents">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Browse Events
+                </button>
+                <button class="nav-btn" data-tab="registerTab" id="navRegister">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                    Register Student
+                </button>
+                <button class="nav-btn" data-tab="createEventTab" id="navCreateEvent">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    Create Event
+                </button>
+                <button class="nav-btn" data-tab="myRegistrationsTab" id="navMyRegistrations">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    Cancellations & Status
+                </button>
+                <button class="nav-btn" data-tab="peopleTab" id="navPeople">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Students & Organizers
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <a href="/swagger-ui/index.html" target="_blank" class="btn btn-secondary btn-sm" id="btnSwagger">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    API Docs
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="app-main">
+        <!-- Toast Notification Area -->
+        <div id="toastContainer" class="toast-container"></div>
+
+        <!-- TAB 1: BROWSE EVENTS -->
+        <section id="eventsTab" class="tab-pane active">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">College Events</h1>
+                    <p class="section-desc">View all campus events, real-time seat capacities, and participant lists.</p>
+                </div>
+                <div class="header-buttons">
+                    <button class="btn btn-secondary" onclick="loadAllEvents()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                        Refresh
+                    </button>
+                    <button class="btn btn-primary" onclick="switchTab('createEventTab')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Create New Event
+                    </button>
+                </div>
+            </div>
+
+            <div id="eventsGrid" class="cards-grid">
+                <!-- Dynamically populated event cards -->
+                <div class="loading-state">Loading college events...</div>
+            </div>
+        </section>
+
+        <!-- TAB 2: REGISTER STUDENT (Features 2 & 3) -->
+        <section id="registerTab" class="tab-pane">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Register for an Event</h1>
+                    <p class="section-desc">Sign up for an event. Enforces existence, prevents duplicate registrations, and automatically stops registrations when capacity is reached.</p>
+                </div>
+            </div>
+
+            <div class="form-card-container">
+                <div class="glass-card form-card">
+                    <h2 class="card-title">Registration Form</h2>
+                    <form id="registrationForm" onsubmit="handleRegistration(event)">
+                        <div class="form-group">
+                            <label for="regStudentSelect">Select Student *</label>
+                            <select id="regStudentSelect" class="form-control" required>
+                                <option value="">-- Choose a student --</option>
+                            </select>
+                            <small class="form-hint">Student not listed? Add them in the "Students & Organizers" tab.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regEventSelect">Select Event *</label>
+                            <select id="regEventSelect" class="form-control" required onchange="handleEventSelectionChange()">
+                                <option value="">-- Choose an event --</option>
+                            </select>
+                            <div id="selectedEventInfo" class="event-info-box" style="display: none;">
+                                <!-- Live capacity info -->
+                            </div>
+                        </div>
+
+                        <div class="rules-box">
+                            <div class="rule-item">
+                                <span class="rule-icon">✓</span>
+                                <span><strong>Duplicate Protection:</strong> Students cannot register twice for the same event.</span>
+                            </div>
+                            <div class="rule-item">
+                                <span class="rule-icon">✓</span>
+                                <span><strong>Capacity Closure:</strong> Submissions are instantly rejected once maximum seats are filled.</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-lg" id="btnSubmitRegistration">
+                            Complete Registration
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CREATE EVENT (Feature 1) -->
+        <section id="createEventTab" class="tab-pane">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Create College Event</h1>
+                    <p class="section-desc">Feature 1: Organizers can schedule an event with title, date, venue, and maximum seats.</p>
+                </div>
+            </div>
+
+            <div class="form-card-container">
+                <div class="glass-card form-card">
+                    <h2 class="card-title">Event Information</h2>
+                    <form id="createEventForm" onsubmit="handleCreateEvent(event)">
+                        <div class="form-group">
+                            <label for="eventTitle">Event Title *</label>
+                            <input type="text" id="eventTitle" class="form-control" placeholder="e.g. Annual Hackathon 2026" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-half">
+                                <label for="eventDate">Event Date *</label>
+                                <input type="date" id="eventDate" class="form-control" required>
+                            </div>
+                            <div class="form-group col-half">
+                                <label for="eventMaxSeats">Maximum Seats *</label>
+                                <input type="number" id="eventMaxSeats" class="form-control" placeholder="e.g. 50" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventVenue">Venue *</label>
+                            <input type="text" id="eventVenue" class="form-control" placeholder="e.g. Main Auditorium / Lab 3" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventOrganizerSelect">Organizer *</label>
+                            <select id="eventOrganizerSelect" class="form-control" required>
+                                <option value="">-- Choose organizer --</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-lg" id="btnSubmitEvent">
+                            Publish Event
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: CANCELLATIONS & STATUS (Feature 5) -->
+        <section id="myRegistrationsTab" class="tab-pane">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Registration Management & Cancellations</h1>
+                    <p class="section-desc">Feature 5: Students can cancel their own registration before the event date, immediately freeing the seat for another student.</p>
+                </div>
+            </div>
+
+            <div class="registration-filter-bar glass-card">
+                <div class="form-group inline-group">
+                    <label for="filterStudentSelect">View Registrations for Student:</label>
+                    <select id="filterStudentSelect" class="form-control" onchange="loadStudentRegistrations()">
+                        <option value="">-- Select student --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="studentRegistrationsContainer" class="registrations-list">
+                <div class="empty-state">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <p>Select a student above to inspect their registrations and cancellations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: STUDENTS & ORGANIZERS -->
+        <section id="peopleTab" class="tab-pane">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Directory Management</h1>
+                    <p class="section-desc">Create or manage students and event organizers.</p>
+                </div>
+            </div>
+
+            <div class="two-column-layout">
+                <!-- Add Student -->
+                <div class="glass-card">
+                    <h2 class="card-title">Add New Student</h2>
+                    <form id="createStudentForm" onsubmit="handleCreateStudent(event)">
+                        <div class="form-group">
+                            <label for="studentName">Student Name *</label>
+                            <input type="text" id="studentName" class="form-control" placeholder="e.g. Katherine Johnson" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentEmail">Email *</label>
+                            <input type="email" id="studentEmail" class="form-control" placeholder="e.g. katherine@college.edu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentRoll">Roll Number / Student ID *</label>
+                            <input type="text" id="studentRoll" class="form-control" placeholder="e.g. CS205" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Add Student</button>
+                    </form>
+                </div>
+
+                <!-- Add Organizer -->
+                <div class="glass-card">
+                    <h2 class="card-title">Add New Organizer</h2>
+                    <form id="createOrganizerForm" onsubmit="handleCreateOrganizer(event)">
+                        <div class="form-group">
+                            <label for="orgName">Organizer Name *</label>
+                            <input type="text" id="orgName" class="form-control" placeholder="e.g. Prof. Claude Shannon" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orgEmail">Email *</label>
+                            <input type="email" id="orgEmail" class="form-control" placeholder="e.g. shannon@college.edu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orgDept">Department</label>
+                            <input type="text" id="orgDept" class="form-control" placeholder="e.g. Information Technology">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Add Organizer</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL: View Registered Participants (Feature 4) -->
+    <div id="participantsModal" class="modal-backdrop" style="display: none;">
+        <div class="modal-dialog glass-card">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="modalEventTitle">Registered Participants</h2>
+                    <span class="modal-subtitle" id="modalEventMeta">Feature 4: Organizer Views Registered Participants</span>
+                </div>
+                <button class="modal-close-btn" onclick="closeParticipantsModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalParticipantsBody">
+                <div class="loading-state">Loading participants...</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeParticipantsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/app.js"></script>
+</body>
+</html>
