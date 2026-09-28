@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.eventease.EventRegistrationIntegrationTests
--------------------------------------------------------------------------------
-Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.760 s -- in com.eventease.EventRegistrationIntegrationTests
